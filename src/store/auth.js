@@ -23,7 +23,7 @@ export default {
     async login({ dispatch }, credentials) {
       let response = await axios.post(
         "/login/mahasiswa",
-        qs.stringify(credentials)
+        qs.stringify(credentials),
       );
 
       dispatch("attempt", response.data.Token);
@@ -33,12 +33,7 @@ export default {
       commit("SET_TOKEN", token);
 
       try {
-        let response = await axios.get("mahasiswa/info", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer" + qs.stringify(token),
-          },
-        });
+        let response = await axios.get("/mahasiswa/info/"+token, {});
 
         commit("SET_USER", response.data);
       } catch (e) {
