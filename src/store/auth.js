@@ -33,10 +33,10 @@ export default {
       commit("SET_TOKEN", token);
 
       try {
-        let response = await axios.get("mahasiswa/info/{{token}}", {
+        let response = await axios.get("mahasiswa/info", {
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer" + token,
+            Authorization: "Bearer" + qs.stringify(token),
           },
         });
 
