@@ -1,5 +1,6 @@
 import axios from "axios";
 import qs from "qs";
+let apiUrl = require('../config/apiConfig')
 
 export default {
   namespaced: true,
@@ -22,8 +23,8 @@ export default {
   actions: {
     async login({ dispatch }, credentials) {
       let response = await axios.post(
-        "/login/mahasiswa",
-        qs.stringify(credentials)
+        apiUrl+"login/mahasiswa",
+        qs.stringify(credentials),
       );
 
       dispatch("attempt", response.data.Token);
@@ -33,12 +34,7 @@ export default {
       commit("SET_TOKEN", token);
 
       try {
-        let response = await axios.get("mahasiswa/info", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer" + qs.stringify(token),
-          },
-        });
+        let response = await axios.get(apiUrl+"mahasiswa/info/"+token, {});
 
         commit("SET_USER", response.data);
       } catch (e) {
