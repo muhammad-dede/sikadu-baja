@@ -33,12 +33,13 @@ export default {
       commit("SET_TOKEN", token);
 
       try {
-        let response = await axios.get("mahasiswa/info", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer" + qs.stringify(token),
-          },
-        });
+        let response = await axios.get("mahasiswa/info");
+        // let response = await axios.get("mahasiswa/info", {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: "Bearer" + qs.stringify(token),
+        //   },
+        // });
 
         commit("SET_USER", response.data);
       } catch (e) {
