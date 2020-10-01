@@ -1,12 +1,14 @@
 <template>
   <v-toolbar flat>
-    <v-toolbar-item class="pr-2 d-lg-none">
-      <v-img
-        max-height="80"
-        max-width="190"
-        src="../../assets/brand-logo.svg"
-      ></v-img>
-    </v-toolbar-item>
+    <v-item-group>
+      <v-item class="pr-2 d-lg-none">
+        <v-img
+          max-height="80"
+          max-width="190"
+          src="@/assets/brand-logo.svg"
+        ></v-img>
+      </v-item>
+    </v-item-group>
 
     <v-toolbar-title class="d-none d-lg-block">Title</v-toolbar-title>
     <v-spacer></v-spacer>
@@ -15,7 +17,7 @@
         <v-btn-fab fab dark v-bind="attrs" v-on="on">
           Muhammad
           <v-list-item-avatar class="ml-1">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+            <img src="" />
           </v-list-item-avatar>
         </v-btn-fab>
       </template>
@@ -23,7 +25,7 @@
       <v-list>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/women/81.jpg" />
+            <img src="" />
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -39,7 +41,6 @@
           link
           router
           :to="item.link"
-          v-model="model"
           color="blue"
         >
           <v-list-item-icon>
@@ -56,6 +57,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "NavTop",
   data() {
@@ -64,7 +67,12 @@ export default {
         { title: "Profil", icon: "mdi-account", link: "/profil" },
         { title: "Logout", icon: "mdi-logout", link: "/logout" },
       ],
-      model: 1,
+      computed: {
+        ...mapGetters({
+          authenticated: "auth/authenticated",
+          user: "auth/user",
+        }),
+      },
     };
   },
 };

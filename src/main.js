@@ -5,13 +5,15 @@ import router from "./router";
 import axios from "axios";
 import store from "./store";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "https://sikadu-unbaja.herokuapp.com";
 
 Vue.config.productionTip = false;
 
-new Vue({
-  vuetify,
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+store.dispatch("auth/attempt", localStorage.getItem("token")).then(() => {
+  new Vue({
+    vuetify,
+    router,
+    store,
+    render: (h) => h(App),
+  }).$mount("#app");
+});

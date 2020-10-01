@@ -1,6 +1,6 @@
 module.exports = {
   transpileDependencies: ["vuetify"],
-  devServer: {
-    proxy: "https://sikadu-unbaja.herokuapp.com",
-  },
+  // devServer: {
+  //   proxy: "https://sikadu-unbaja.herokuapp.com",
+  // },
 };
