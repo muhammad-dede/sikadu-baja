@@ -3,7 +3,9 @@
     <side-bar v-if="authenticated"></side-bar>
     <v-main>
       <nav-top v-if="authenticated"></nav-top>
-      <router-view />
+      <transition name="fade">
+        <router-view />
+      </transition>
     </v-main>
     <nav-bottom v-if="authenticated"></nav-bottom>
   </v-app>

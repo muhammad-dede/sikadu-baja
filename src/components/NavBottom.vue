@@ -1,6 +1,6 @@
 <template>
   <v-footer class="d-lg-none" app>
-    <v-bottom-navigation dense absolute color="blue" grow class="pt-0">
+    <v-bottom-navigation dense absolute grow class="pt-0" id="custom-text">
       <v-btn
         v-for="item in items"
         :key="item.title"
@@ -29,8 +29,15 @@ export default {
           icon: "mdi-credit-card-outline",
           link: "/pembayaran",
         },
+        { title: "Profil", icon: "mdi-account", link: "/profil" },
       ],
     };
   },
 };
 </script>
+
+<style>
+#custom-text {
+  color: #4682b4;
+}
+</style>

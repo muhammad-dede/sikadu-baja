@@ -33,10 +33,11 @@
               {{ user.Email }}
             </p>
             <v-divider class="my-1"></v-divider>
-            <v-btn depressed rounded text block>
-              Profil
-            </v-btn>
-            <v-divider class="my-1"></v-divider>
+            <!-- <router-link to="/profil" tag="v-btn">
+              <v-btn depressed rounded text block link :to="profil">
+                Profil
+              </v-btn>
+            </router-link> -->
             <v-btn depressed rounded text block @click.prevent="handleLogout">
               Logout
             </v-btn>

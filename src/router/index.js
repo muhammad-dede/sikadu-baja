@@ -6,6 +6,7 @@ import Beranda from "@/views/Beranda";
 import Jadwal from "@/views/Jadwal";
 import Nilai from "@/views/Nilai";
 import Pembayaran from "@/views/Pembayaran";
+import Profil from "@/views/Profil";
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,19 @@ const routes = [
       if (!store.getters["auth/authenticated"]) {
         return next({
           name: "Login",
+        });
+      }
+      next();
+    },
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    component: Profil,
+    beforeEnter: (to, from, next) => {
+      if (!store.getters["auth/authenticated"]) {
+        return next({
+          name: "Profil",
         });
       }
       next();

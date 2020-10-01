@@ -13,7 +13,6 @@
         link
         router
         :to="item.link"
-        v-model="model"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -41,8 +40,8 @@ export default {
           icon: "mdi-credit-card-outline",
           link: "/pembayaran",
         },
+        { title: "Profil", icon: "mdi-account", link: "/profil" },
       ],
-      model: 1,
     };
   },
 };
