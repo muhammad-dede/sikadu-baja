@@ -7,5 +7,13 @@
 <script>
 export default {
   name: "Jadwal",
+  metaInfo: {
+    title: "Sikadu-Baja",
+    titleTemplate: "%s | Jadwal Perkuliahan",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
 };
 </script>

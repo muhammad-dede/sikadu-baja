@@ -63,6 +63,14 @@ import Error from "@/views/partials/Error";
 
 export default {
   name: "Login",
+  metaInfo: {
+    title: "Sikadu-Baja",
+    titleTemplate: "%s | Login",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
   components: {
     Error,
   },

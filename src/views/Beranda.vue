@@ -7,5 +7,13 @@
 <script>
 export default {
   name: "Beranda",
+  metaInfo: {
+    title: "Sikadu-Baja",
+    titleTemplate: "%s | Beranda",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
 };
 </script>

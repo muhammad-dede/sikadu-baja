@@ -7,5 +7,13 @@
 <script>
 export default {
   name: "Profil",
+  metaInfo: {
+    title: "Sikadu-Baja",
+    titleTemplate: "%s | Profil",
+    htmlAttrs: {
+      lang: "en",
+      amp: true,
+    },
+  },
 };
 </script>
