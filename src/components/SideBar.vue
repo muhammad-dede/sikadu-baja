@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer absolute app>
+  <v-navigation-drawer absolute app height="100%" id="sidebar">
     <template v-slot:prepend>
       <v-list-item class="mt-2 mb-5">
         <v-img height="100%" width="65" src="@/assets/brand-logo.svg"></v-img>
@@ -50,5 +50,9 @@ export default {
 <style>
 #custom-text {
   color: #4682b4;
+}
+
+#sidebar {
+  background-color: #e9f0f6;
 }
 </style>

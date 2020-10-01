@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar>
+  <v-toolbar flat>
     <v-item-group>
       <v-item class="pr-2 d-lg-none">
         <v-img
@@ -11,7 +11,7 @@
     </v-item-group>
 
     <v-toolbar-title class="d-none d-lg-block"
-      ><strong>{{ user.Name }}</strong></v-toolbar-title
+      ><strong>Profil</strong></v-toolbar-title
     >
     <v-spacer></v-spacer>
     <v-menu transition="slide-x-transition">

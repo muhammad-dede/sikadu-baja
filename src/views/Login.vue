@@ -21,22 +21,37 @@
                     Masukkan Nomor Induk Mahasiswa & Kata Sandi Kamu
                   </small>
                   <v-form ref="form" v-model="valid">
-                    <v-text-field
-                      class="mt-10"
-                      label="Nomor Induk Mahasiswa"
-                      :rules="npmRules"
-                      type="number"
-                      hide-details="auto"
-                      v-model="form.user"
-                    ></v-text-field>
-                    <v-text-field
-                      class="mt-3"
-                      label="Kata Sandi"
-                      :rules="passwordRules"
-                      hide-details="auto"
-                      type="password"
-                      v-model="form.password"
-                    ></v-text-field>
+                    <v-alert
+                      class="mt-5"
+                      border="left"
+                      colored-border
+                      id="custom-text"
+                      dense
+                    >
+                      <v-text-field
+                        class="mt-n2"
+                        label="Nomor Induk Mahasiswa"
+                        :rules="npmRules"
+                        type="number"
+                        hide-details="auto"
+                        v-model="form.user"
+                      ></v-text-field>
+                    </v-alert>
+                    <v-alert
+                      border="left"
+                      colored-border
+                      id="custom-text"
+                      dense
+                    >
+                      <v-text-field
+                        class="mt-n2"
+                        label="Kata Sandi"
+                        :rules="passwordRules"
+                        hide-details="auto"
+                        type="password"
+                        v-model="form.password"
+                      ></v-text-field>
+                    </v-alert>
                     <error v-if="error" :error="error"></error>
                     <v-btn
                       block

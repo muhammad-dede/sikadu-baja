@@ -5,10 +5,17 @@ import router from "./router";
 import axios from "axios";
 import store from "./store";
 import VueMeta from "vue-meta";
+import moment from "moment";
+
+Vue.config.productionTip = false;
 
 axios.defaults.baseURL = "https://sikadu-unbaja.herokuapp.com";
 
-Vue.config.productionTip = false;
+Vue.filter("formatDate", function(value) {
+  if (value) {
+    return moment(String(value)).format("DD-MM-YYYY");
+  }
+});
 
 Vue.use(VueMeta, {
   refreshOnceOnNavigation: true,
