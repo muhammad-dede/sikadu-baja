@@ -15,9 +15,9 @@
     <v-menu>
       <template v-slot:activator="{ on, attrs }">
         <v-btn-fab fab dark v-bind="attrs" v-on="on">
-          Muhammad
+          <span>{{ user.Name }}</span>
           <v-list-item-avatar class="ml-1">
-            <img src="" />
+            <img :src="user.ProfilePict" />
           </v-list-item-avatar>
         </v-btn-fab>
       </template>
@@ -25,12 +25,12 @@
       <v-list>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <img src="" />
+            <img :src="user.ProfilePict" />
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Jane Smith</v-list-item-title>
-            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+            <v-list-item-title>{{ user.Name }}</v-list-item-title>
+            <v-list-item-subtitle>{{ user.Email }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -67,13 +67,13 @@ export default {
         { title: "Profil", icon: "mdi-account", link: "/profil" },
         { title: "Logout", icon: "mdi-logout", link: "/logout" },
       ],
-      computed: {
-        ...mapGetters({
-          authenticated: "auth/authenticated",
-          user: "auth/user",
-        }),
-      },
     };
+  },
+  computed: {
+    ...mapGetters({
+      token: "auth/authenticated",
+      user: "auth/user",
+    }),
   },
 };
 </script>

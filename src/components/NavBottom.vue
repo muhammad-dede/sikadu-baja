@@ -1,6 +1,6 @@
 <template>
   <v-footer class="d-lg-none" app>
-    <v-bottom-navigation dense absolute color="blue" grow class="pt-2">
+    <v-bottom-navigation dense absolute color="blue" grow class="pt-0">
       <v-btn
         v-for="item in items"
         :key="item.title"

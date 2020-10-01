@@ -12,9 +12,9 @@
 <script>
 import { mapGetters } from "vuex";
 
-import SideBar from "@/views/templates/SideBar";
-import NavTop from "@/views/templates/NavTop";
-import NavBottom from "@/views/templates/NavBottom";
+import SideBar from "@/components/SideBar";
+import NavTop from "@/components/NavTop";
+import NavBottom from "@/components/NavBottom";
 
 export default {
   components: {

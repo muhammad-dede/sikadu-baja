@@ -2,11 +2,7 @@
   <v-navigation-drawer absolute app>
     <template v-slot:prepend>
       <v-list-item class="mt-2 mb-5">
-        <v-img
-          height="100%"
-          width="65"
-          src="../../assets/brand-logo.svg"
-        ></v-img>
+        <v-img height="100%" width="65" src="@/assets/brand-logo.svg"></v-img>
       </v-list-item>
     </template>
 
