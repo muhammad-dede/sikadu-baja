@@ -11,7 +11,7 @@
     </v-item-group>
 
     <v-toolbar-title class="d-none d-lg-block"
-      ><strong>{{ title }}</strong></v-toolbar-title
+      ><strong>{{ user.Name }}</strong></v-toolbar-title
     >
     <v-spacer></v-spacer>
     <v-menu transition="slide-x-transition">
@@ -52,7 +52,6 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "NavTop",
-  props: ["title"],
   data() {
     return {
       //

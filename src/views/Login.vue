@@ -37,6 +37,7 @@
                       type="password"
                       v-model="form.password"
                     ></v-text-field>
+                    <error v-if="error" :error="error"></error>
                     <v-btn
                       block
                       rounded
@@ -58,8 +59,13 @@
 
 <script>
 import { mapActions } from "vuex";
+import Error from "@/views/partials/Error";
+
 export default {
   name: "Login",
+  components: {
+    Error,
+  },
   data() {
     return {
       valid: true,
@@ -75,8 +81,10 @@ export default {
         user: "",
         password: "",
       },
+      error: "",
     };
   },
+
   methods: {
     ...mapActions({
       login: "auth/login",
@@ -94,7 +102,7 @@ export default {
             });
           })
           .catch(() => {
-            console.log("failed");
+            this.error = "NIM/Password tidak valid!";
           });
       }
     },

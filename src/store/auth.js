@@ -35,7 +35,10 @@ export default {
         "/login/mahasiswa",
         qs.stringify(credentials)
       );
-      return dispatch("attempt", response.data.Token);
+      let user = await axios.get("/mahasiswa/info/" + response.data.Token);
+      if (user) {
+        return dispatch("attempt", response.data.Token);
+      }
     },
 
     async attempt({ commit, state }, token) {
