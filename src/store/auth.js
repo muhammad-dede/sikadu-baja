@@ -49,13 +49,21 @@ export default {
       }
 
       try {
-        let response = await axios.get("/mahasiswa/info/" + token);
+        let response = await axios.get(
+          "/mahasiswa/info/" + localStorage.getItem("token")
+        );
 
         commit("SET_USER", response.data.Info);
       } catch (e) {
         commit("SET_TOKEN", null);
         commit("SET_USER", null);
       }
+    },
+
+    logout({ commit }) {
+      commit("SET_TOKEN", null);
+      commit("SET_USER", null);
+      localStorage.removeItem("token");
     },
   },
 };

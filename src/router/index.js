@@ -14,6 +14,7 @@ const routes = [
     path: "/",
     name: "Login",
     component: Login,
+    meta: { title: "Login | Sikadu-Baja" },
     beforeEnter: (to, from, next) => {
       if (store.getters["auth/authenticated"]) {
         return next({
@@ -27,6 +28,7 @@ const routes = [
     path: "/beranda",
     name: "Beranda",
     component: Beranda,
+    meta: { title: "Beranda | Sikadu-Baja" },
     beforeEnter: (to, from, next) => {
       if (!store.getters["auth/authenticated"]) {
         return next({

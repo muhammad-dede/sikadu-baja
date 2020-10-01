@@ -6,7 +6,7 @@
       </v-list-item>
     </template>
 
-    <v-list dense nav>
+    <v-list dense nav id="custom-text">
       <v-list-item
         v-for="item in items"
         :key="item.title"
@@ -14,7 +14,6 @@
         router
         :to="item.link"
         v-model="model"
-        color="blue"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -48,3 +47,9 @@ export default {
   },
 };
 </script>
+
+<style>
+#custom-text {
+  color: #4682b4;
+}
+</style>

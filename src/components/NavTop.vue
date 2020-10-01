@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar flat>
+  <v-toolbar>
     <v-item-group>
       <v-item class="pr-2 d-lg-none">
         <v-img
@@ -10,63 +10,52 @@
       </v-item>
     </v-item-group>
 
-    <v-toolbar-title class="d-none d-lg-block">Title</v-toolbar-title>
+    <v-toolbar-title class="d-none d-lg-block"
+      ><strong>{{ title }}</strong></v-toolbar-title
+    >
     <v-spacer></v-spacer>
-    <v-menu>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn-fab fab dark v-bind="attrs" v-on="on">
-          <span>{{ user.Name }}</span>
-          <v-list-item-avatar class="ml-1">
-            <img :src="user.ProfilePict" />
-          </v-list-item-avatar>
-        </v-btn-fab>
+    <v-menu transition="slide-x-transition">
+      <template v-slot:activator="{ on }">
+        <v-btn icon x-large v-on="on" class="ma-1">
+          <v-avatar size="45">
+            <v-img :src="user.ProfilePict"></v-img>
+          </v-avatar>
+        </v-btn>
       </template>
-
-      <v-list>
-        <v-list-item two-line>
-          <v-list-item-avatar>
-            <img :src="user.ProfilePict" />
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ user.Name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ user.Email }}</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <v-list dense nav>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          router
-          :to="item.link"
-          color="blue"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <v-card>
+        <v-list-item-content class="justify-center">
+          <div class="mx-auto text-center">
+            <v-avatar small>
+              <v-img :src="user.ProfilePict"></v-img>
+            </v-avatar>
+            <h4 class="px-2 mt-2">{{ user.Name }}</h4>
+            <p class="caption px-2">
+              {{ user.Email }}
+            </p>
+            <v-divider class="my-1"></v-divider>
+            <v-btn depressed rounded text block>
+              Profil
+            </v-btn>
+            <v-divider class="my-1"></v-divider>
+            <v-btn depressed rounded text block @click.prevent="handleLogout">
+              Logout
+            </v-btn>
+          </div>
+        </v-list-item-content>
+      </v-card>
     </v-menu>
   </v-toolbar>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "NavTop",
+  props: ["title"],
   data() {
     return {
-      items: [
-        { title: "Profil", icon: "mdi-account", link: "/profil" },
-        { title: "Logout", icon: "mdi-logout", link: "/logout" },
-      ],
+      //
     };
   },
   computed: {
@@ -75,5 +64,24 @@ export default {
       user: "auth/user",
     }),
   },
+  methods: {
+    ...mapActions({
+      logoutAction: "auth/logout",
+    }),
+
+    handleLogout() {
+      this.logoutAction().then(() => {
+        this.$router.replace({
+          name: "Login",
+        });
+      });
+    },
+  },
 };
 </script>
+
+<style>
+strong {
+  color: #4682b4;
+}
+</style>
