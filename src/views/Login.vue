@@ -14,37 +14,30 @@
             <v-card class="pa-2" flat>
               <v-container>
                 <div>
-                  <v-img src="../assets/brand-logo.svg" class="mb-6"></v-img>
+                  <v-img src="../assets/brand-logo.svg" class="mb-5"></v-img>
                   <span class="font-weight-bold" id="custom-text">Masuk</span
                   ><br />
-                  <small class="mb-15" id="custom-text">
+                  <small class="mb-13" id="custom-text">
                     Masukkan Nomor Induk Mahasiswa & Kata Sandi Kamu
                   </small>
                   <v-form ref="form" v-model="valid">
                     <v-alert
-                      class="mt-5"
+                      class="mt-8"
                       border="left"
                       colored-border
                       id="custom-text"
                       dense
                     >
                       <v-text-field
-                        class="mt-n2"
+                        class="mt-n3"
                         label="Nomor Induk Mahasiswa"
                         :rules="npmRules"
                         type="number"
                         hide-details="auto"
                         v-model="form.user"
                       ></v-text-field>
-                    </v-alert>
-                    <v-alert
-                      border="left"
-                      colored-border
-                      id="custom-text"
-                      dense
-                    >
                       <v-text-field
-                        class="mt-n2"
+                        class="mt-3"
                         label="Kata Sandi"
                         :rules="passwordRules"
                         hide-details="auto"
@@ -56,8 +49,9 @@
                     <v-btn
                       block
                       rounded
+                      :loading="loading"
                       id="custom-btn"
-                      color="white--text mt-10"
+                      color="white--text mt-8"
                       @click="submit"
                       >Masuk</v-btn
                     >
@@ -105,6 +99,7 @@ export default {
         password: "",
       },
       error: "",
+      loading: false,
     };
   },
 
@@ -115,16 +110,19 @@ export default {
 
     submit() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         this.login({
           user: this.form.user,
           password: this.form.password,
         })
           .then(() => {
+            this.loading = false;
             this.$router.replace({
               name: "Beranda",
             });
           })
           .catch(() => {
+            this.loading = false;
             this.error = "NIM/Password tidak valid!";
           });
       }

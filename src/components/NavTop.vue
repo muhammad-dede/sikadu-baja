@@ -11,7 +11,7 @@
     </v-item-group>
 
     <v-toolbar-title class="d-none d-lg-block"
-      ><strong>Profil</strong></v-toolbar-title
+      ><strong>{{ $route.name }}</strong></v-toolbar-title
     >
     <v-spacer></v-spacer>
     <v-menu transition="slide-x-transition">
@@ -53,6 +53,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "NavTop",
+
   data() {
     return {
       //

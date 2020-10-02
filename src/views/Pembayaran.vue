@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Pembayaran</h1>
+    <v-container fluid class="mb-16"></v-container>
   </div>
 </template>
 
