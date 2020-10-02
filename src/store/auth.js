@@ -31,14 +31,15 @@ export default {
 
   actions: {
     async login({ dispatch }, credentials) {
-      let response = await axios.post(
+      // Pake then untuk catch error nya dan get hasil dari promises
+      await axios.post(
         "/login/mahasiswa",
         qs.stringify(credentials)
-      );
-      let user = await axios.get("/mahasiswa/info/" + response.data.Token);
-      if (user) {
+      ).then((response) =>{
         return dispatch("attempt", response.data.Token);
-      }
+      },(error) =>{
+        console.log(error);
+      });
     },
 
     async attempt({ commit, state }, token) {
@@ -51,16 +52,15 @@ export default {
         return;
       }
 
-      try {
-        let response = await axios.get(
-          "/mahasiswa/info/" + localStorage.getItem("token")
-        );
-
+      await await axios.get(
+        "/mahasiswa/info/" + localStorage.getItem("token")
+      ).then((response) =>{
         commit("SET_USER", response.data.Info);
-      } catch (e) {
+      },(error) =>{
         commit("SET_TOKEN", null);
         commit("SET_USER", null);
-      }
+        console.log(error);
+      });
     },
 
     logout({ commit }) {
