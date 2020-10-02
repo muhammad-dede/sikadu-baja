@@ -37,6 +37,7 @@
                         v-model="form.user"
                       ></v-text-field>
                       <v-text-field
+                        @keyup.enter="submit"
                         class="mt-3"
                         label="Kata Sandi"
                         :rules="passwordRules"
