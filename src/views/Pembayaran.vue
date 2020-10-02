@@ -80,7 +80,7 @@
             </v-timeline-item>
           </v-timeline>
         </v-col>
-        <v-col cols="5" class="d-none d-sm-block">
+        <v-col cols="6" class="d-none d-sm-block">
           <v-img
             src="@/assets/ilustration/undraw_printing_invoices_5r4r.svg"
           ></v-img>
