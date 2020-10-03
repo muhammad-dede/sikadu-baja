@@ -22,31 +22,19 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="data in nilai.Data" :key="data.Semester">
-                  <td>{{ data.Periodic }}</td>
-                  <td class="pl-9">{{ data.Semester }}</td>
-                  <td class="pl-9">{{ data.Cumulative }}</td>
+                <tr v-for="nilai in nilai.Data" :key="nilai.Semester">
+                  <td>{{ nilai.Periodic }}</td>
+                  <td class="pl-9">{{ nilai.Semester }}</td>
+                  <td class="pl-9">{{ nilai.Cumulative }}</td>
                   <td>
-                    <v-bottom-sheet v-model="sheet" inset>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn color="orange" dark v-bind="attrs" v-on="on">
-                          Open Inset
-                        </v-btn>
-                      </template>
-                      <v-sheet class="text-center" height="200px">
-                        <v-btn
-                          class="mt-6"
-                          text
-                          color="error"
-                          @click="sheet = !sheet"
-                        >
-                          close
-                        </v-btn>
-                        <div class="my-3">
-                          This is a bottom sheet using the inset prop
-                        </div>
-                      </v-sheet>
-                    </v-bottom-sheet>
+                    <v-btn
+                      id="detail-btn"
+                      class="white--text"
+                      x-small
+                      @click.prevent="detailNilai()"
+                      :data-semester="nilai.Semester"
+                      >Detail</v-btn
+                    >
                   </td>
                 </tr>
               </tbody>
@@ -60,6 +48,23 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog v-model="dialog" persistent max-width="500">
+      <v-card>
+        <v-card-title class="headline">
+          Use Google's location service?
+        </v-card-title>
+        <v-card-text
+          >Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">
+            Disagree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -68,6 +73,7 @@ import { mapState } from "vuex";
 
 export default {
   name: "Nilai",
+
   metaInfo: {
     title: "Sikadu-Baja",
     titleTemplate: "%s | Nilai",
@@ -76,12 +82,25 @@ export default {
       amp: true,
     },
   },
-  data: () => ({
-    sheet: false,
-  }),
+
+  data() {
+    return {
+      dialog: false,
+    };
+  },
+
   computed: {
     ...mapState("nilai", ["nilai"]),
   },
+
+  methods: {
+    detailNilai() {
+      const button = document.querySelector("#detail-btn");
+      console.log(button.dataset.semester);
+      this.dialog = true;
+    },
+  },
+
   created() {
     this.$store.dispatch("nilai/getNilai");
   },
@@ -91,5 +110,8 @@ export default {
 <style>
 #custom-text {
   color: #4682b4;
+}
+#detail-btn {
+  background-color: #4682b4;
 }
 </style>

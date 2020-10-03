@@ -14,8 +14,8 @@ export default {
   },
 
   actions: {
-    getPembayaran({ commit }) {
-      axios
+    async getPembayaran({ commit }) {
+      await axios
         .get("mahasiswa/finance/" + localStorage.getItem("token"))
         .then((response) => {
           commit("SET_PEMBAYARAN", response.data.Finance);
