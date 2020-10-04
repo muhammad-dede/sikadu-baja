@@ -41,6 +41,26 @@
                         >
                       </v-list-item-content>
                     </v-list-item>
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title>Tagihan Ke-3</v-list-item-title>
+                      </v-list-item-content>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          Rp. {{ data.Fourth }}</v-list-item-title
+                        >
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title>Tagihan Ke-3</v-list-item-title>
+                      </v-list-item-content>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          Rp. {{ data.Fifth }}</v-list-item-title
+                        >
+                      </v-list-item-content>
+                    </v-list-item>
                   </v-list>
                   <v-divider></v-divider>
                   <v-list dense>
@@ -82,7 +102,7 @@
         </v-col>
         <v-col cols="6" class="d-none d-sm-block">
           <v-img
-            src="@/assets/ilustration/undraw_printing_invoices_5r4r.svg"
+            src="@/assets/ilustration/undraw_online_payments_luau.svg"
           ></v-img>
         </v-col>
       </v-row>

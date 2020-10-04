@@ -6,12 +6,16 @@ import axios from "axios";
 import store from "./store";
 import VueMeta from "vue-meta";
 import moment from "moment";
+import Chartkick from "vue-chartkick";
+import Chart from "chart.js";
 
 Vue.config.productionTip = false;
 
+Vue.use(Chartkick.use(Chart));
+
 axios.defaults.baseURL = "https://sikadu-unbaja.herokuapp.com";
 
-Vue.filter("formatDate", function(value) {
+Vue.filter("formatDate", function (value) {
   if (value) {
     return moment(String(value)).format("DD-MM-YYYY");
   }

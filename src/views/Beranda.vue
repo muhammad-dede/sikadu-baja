@@ -5,37 +5,27 @@
         Hallo <strong>{{ user.Name }}</strong
         >, Selamat Datang Di Sistem Informasi Akademik Terpadu
       </v-alert>
-      <v-row>
+      <v-row class="pt-3">
         <v-col cols="12" sm="6" md="6">
           <v-img
-            src="@/assets/ilustration/undraw_Status_update_re_dm9y.svg"
+            src="@/assets/ilustration/undraw_creative_team_r90h.svg"
           ></v-img>
         </v-col>
         <v-col cols="12" md="6" sm="6">
-          <v-card class="mx-auto text-center" color="#4682b4" dark>
-            <v-card-text>
-              <v-sheet color="white">
-                <v-sparkline
-                  :value="nilai.Data"
-                  color="#4682b4"
-                  height="100"
-                  padding="24"
-                  stroke-linecap="round"
-                  smooth
-                >
-                  <template v-slot:label="item"> ${{ item.value }} </template>
-                </v-sparkline>
-              </v-sheet>
-            </v-card-text>
-
-            <v-card-text>
-              <div class="display-1 font-weight-thin">Nilai Semester</div>
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions class="justify-center">
-              <v-btn block text> Lihat Nilai </v-btn>
+          <v-card class="mx-auto" max-width="500">
+            <v-card-title class="blue--text"
+              >Nilai Indeks Prestasi Kumulatif</v-card-title
+            >
+            <column-chart
+              class="pt-5 px-5"
+              v-if="result"
+              :data="result"
+            ></column-chart>
+            <v-divider class="mx-4"></v-divider>
+            <v-card-actions>
+              <router-link to="/nilai" class="text-decoration-none">
+                <v-btn color="#4682b4" text> Lihat Nilai </v-btn>
+              </router-link>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -58,6 +48,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      result: null,
+    };
+  },
+
   created() {
     this.$store.dispatch("beranda/getNilai");
   },
@@ -70,9 +66,19 @@ export default {
     ...mapState("beranda", ["nilai"]),
   },
 
-  data: () => ({
-    value: [423, 446, 675, 510, 590, 610, 760],
-  }),
+  mounted() {
+    this.fetchData();
+  },
+
+  methods: {
+    fetchData() {
+      let result = [];
+      this.nilai.forEach((element) => {
+        result.push([element.Semester, element.Cumulative]);
+      });
+      this.result = result;
+    },
+  },
 };
 </script>
 

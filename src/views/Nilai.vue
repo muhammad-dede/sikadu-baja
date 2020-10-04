@@ -6,6 +6,14 @@
           <v-alert id="alert" border="left" colored-border elevation="2">
             <h3>
               <strong>IPK : {{ nilai.GPA }}</strong>
+              <v-spacer></v-spacer>
+              <v-btn
+                id="detail-btn"
+                class="white--text"
+                x-small
+                @click.prevent="printTranskrip()"
+                >Cetak Transkrip</v-btn
+              >
             </h3>
           </v-alert>
           <v-simple-table outlined>
@@ -167,6 +175,21 @@ export default {
         const link = document.createElement("a");
         link.href = url;
         link.setAttribute("download", "Nilai_Semester.pdf");
+        document.body.appendChild(link);
+        link.click();
+      });
+    },
+
+    printTranskrip() {
+      axios({
+        url: "mahasiswa/report/transcript/" + localStorage.getItem("token"),
+        method: "GET",
+        responseType: "blob", // important
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "Transkrip-Nilai.pdf");
         document.body.appendChild(link);
         link.click();
       });
