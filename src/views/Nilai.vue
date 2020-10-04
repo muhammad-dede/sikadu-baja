@@ -1,24 +1,17 @@
 <template>
   <div>
-    <v-container fluid>
+    <v-container fluid class="mb-16">
       <v-row>
         <v-col>
-          <v-simple-table>
+          <v-simple-table outlined color="primary">
             <template v-slot:default>
               <thead>
                 <tr id="custom-text">
-                  <th class="text-left">
-                    Periode Semester
-                  </th>
-                  <th class="text-left">
-                    Semester
-                  </th>
-                  <th class="text-left">
-                    IPK Semester
-                  </th>
-                  <th class="text-left">
-                    Detail
-                  </th>
+                  <th class="text-left">Periode Semester</th>
+                  <th class="text-left">Semester</th>
+                  <th class="text-left">IPK Semester</th>
+                  <th class="text-left">Detail</th>
+                  <th class="text-left">Print</th>
                 </tr>
               </thead>
               <tbody>
@@ -26,14 +19,22 @@
                   <td>{{ nilai.Periodic }}</td>
                   <td class="pl-9">{{ nilai.Semester }}</td>
                   <td class="pl-9">{{ nilai.Cumulative }}</td>
+                  <td class="text-left">
+                    <v-btn
+                      id="detail-btn"
+                      class="white--text"
+                      x-small
+                      @click.prevent="detailNilai(nilai)"
+                      >Detail</v-btn
+                    >
+                  </td>
                   <td>
                     <v-btn
                       id="detail-btn"
                       class="white--text"
                       x-small
-                      @click.prevent="detailNilai()"
-                      :data-semester="nilai.Semester"
-                      >Detail</v-btn
+                      @click.prevent="getPrint(nilai)"
+                      >Print</v-btn
                     >
                   </td>
                 </tr>
@@ -41,26 +42,57 @@
             </template>
           </v-simple-table>
         </v-col>
-        <v-col cols="5">
+        <v-col cols="6" class="d-none d-sm-block">
           <v-img
             src="@/assets/ilustration/undraw_data_reports_706v.svg"
           ></v-img>
         </v-col>
       </v-row>
     </v-container>
-    <v-dialog v-model="dialog" persistent max-width="500">
+    <v-dialog v-model="dialog" persistent max-width="700">
       <v-card>
-        <v-card-title class="headline">
-          Use Google's location service?
+        <v-card-title class="headline"
+          ><strong>
+            Nilai Semester {{ detail.Year }}/{{ Number(detail.Year) + 1 }}
+            {{ detail.Quart === "1" ? "Ganjil" : "Genap" }}</strong
+          >
         </v-card-title>
-        <v-card-text
-          >Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.</v-card-text
-        >
+        <v-card-text>
+          <v-simple-table dense>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Mata Kuliah</th>
+                  <th class="text-left">SKS</th>
+                  <th class="text-left">Nilai</th>
+                  <th class="text-left">Bobot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="detail in detail.Data" :key="detail.Quart">
+                  <td>{{ detail.CourseName }}</td>
+                  <td>{{ detail.Credit }}</td>
+                  <td>{{ detail.GradeLetter }}</td>
+                  <td class="text-center">{{ detail.GradePoint }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <h3><strong>IPK Semester</strong></h3>
+                  </td>
+                  <td colspan="2" class="text-right">
+                    <h3>
+                      <strong>{{ detail.Cumulative }}</strong>
+                    </h3>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="dialog = false">
-            Disagree
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Tutup
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -89,16 +121,25 @@ export default {
     };
   },
 
-  computed: {
-    ...mapState("nilai", ["nilai"]),
+  methods: {
+    detailNilai(nilai) {
+      this.$store
+        .dispatch("nilai/getDetailNilai", {
+          year: nilai.Year,
+          quart: nilai.Quart,
+        })
+        .then(() => {
+          this.dialog = true;
+        })
+        .catch(() => {
+          this.dialog = false;
+        });
+    },
   },
 
-  methods: {
-    detailNilai() {
-      const button = document.querySelector("#detail-btn");
-      console.log(button.dataset.semester);
-      this.dialog = true;
-    },
+  computed: {
+    ...mapState("nilai", ["nilai"]),
+    ...mapState("nilai", ["detail"]),
   },
 
   created() {
