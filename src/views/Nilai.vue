@@ -127,6 +127,15 @@ export default {
     };
   },
 
+  created() {
+    this.$store.dispatch("nilai/getNilai");
+  },
+
+  computed: {
+    ...mapState("nilai", ["nilai"]),
+    ...mapState("nilai", ["detail"]),
+  },
+
   methods: {
     detailNilai(nilai) {
       this.$store
@@ -162,15 +171,6 @@ export default {
         link.click();
       });
     },
-  },
-
-  computed: {
-    ...mapState("nilai", ["nilai"]),
-    ...mapState("nilai", ["detail"]),
-  },
-
-  created() {
-    this.$store.dispatch("nilai/getNilai");
   },
 };
 </script>
