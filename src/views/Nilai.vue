@@ -3,7 +3,12 @@
     <v-container fluid class="mb-16">
       <v-row>
         <v-col>
-          <v-simple-table outlined color="primary">
+          <v-alert id="alert" border="left" colored-border elevation="2">
+            <h3>
+              <strong>IPK : {{ nilai.GPA }}</strong>
+            </h3>
+          </v-alert>
+          <v-simple-table outlined>
             <template v-slot:default>
               <thead>
                 <tr id="custom-text">
@@ -33,7 +38,7 @@
                       id="detail-btn"
                       class="white--text"
                       x-small
-                      @click.prevent="getPrint(nilai)"
+                      @click.prevent="printNilai(nilai)"
                       >Print</v-btn
                     >
                   </td>
@@ -102,6 +107,7 @@
 
 <script>
 import { mapState } from "vuex";
+import axios from "axios";
 
 export default {
   name: "Nilai",
@@ -135,6 +141,27 @@ export default {
           this.dialog = false;
         });
     },
+
+    printNilai(nilai) {
+      axios({
+        url:
+          "mahasiswa/report/grade/" +
+          nilai.Year +
+          "/" +
+          nilai.Quart +
+          "/" +
+          localStorage.getItem("token"),
+        method: "GET",
+        responseType: "blob", // important
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "Nilai_Semester.pdf");
+        document.body.appendChild(link);
+        link.click();
+      });
+    },
   },
 
   computed: {
@@ -154,5 +181,8 @@ export default {
 }
 #detail-btn {
   background-color: #4682b4;
+}
+#alert {
+  color: #4682b4;
 }
 </style>
