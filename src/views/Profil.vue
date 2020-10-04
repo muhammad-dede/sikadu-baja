@@ -27,7 +27,7 @@
             <v-divider class="my-3"></v-divider>
             <!-- Batas -->
 
-            <v-tabs v-model="model" centered slider-color="blue">
+            <v-tabs v-model="model" centered slider-color=" #4682b4">
               <v-tab :href="`#tab-biodata`"> Biodata </v-tab>
               <v-tab :href="`#tab-jurusan`"> Jurusan </v-tab>
             </v-tabs>
@@ -194,11 +194,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Profil",
-  data() {
-    return {
-      model: "tab-1",
-    };
-  },
+
   metaInfo: {
     title: "Sikadu-Baja",
     titleTemplate: "%s | Profil",
@@ -207,6 +203,13 @@ export default {
       amp: true,
     },
   },
+
+  data() {
+    return {
+      model: "tab-1",
+    };
+  },
+
   computed: {
     ...mapGetters({
       user: "auth/user",
@@ -215,7 +218,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #title {
   color: #4682b4;
 }
