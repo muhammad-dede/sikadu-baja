@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pembayaran">
     <v-container fluid class="mb-16">
       <v-row>
         <v-col>
@@ -10,14 +10,14 @@
           </v-alert>
           <v-expansion-panels focusable>
             <v-expansion-panel
-              v-for="data in pembayaran.Bill"
-              :key="data.No"
+              v-for="pembayaran in dataPembayaran.Bill"
+              :key="pembayaran.No"
               class="my-1"
             >
               <v-expansion-panel-header id="text-color">
                 <v-row>
-                  <v-col>{{ data.Period }}</v-col>
-                  <v-col>{{ data.Status }}</v-col>
+                  <v-col>{{ pembayaran.Period }}</v-col>
+                  <v-col>{{ pembayaran.Status }}</v-col>
                 </v-row>
               </v-expansion-panel-header>
               <v-expansion-panel-content id="text-color">
@@ -30,7 +30,7 @@
                         </v-list-item-content>
                         <v-list-item-content>
                           <v-list-item-title>
-                            Rp. {{ data.First }}</v-list-item-title
+                            Rp. {{ pembayaran.First }}</v-list-item-title
                           >
                         </v-list-item-content>
                       </v-list-item>
@@ -40,7 +40,7 @@
                         </v-list-item-content>
                         <v-list-item-content>
                           <v-list-item-title>
-                            Rp. {{ data.Second }}</v-list-item-title
+                            Rp. {{ pembayaran.Second }}</v-list-item-title
                           >
                         </v-list-item-content>
                       </v-list-item>
@@ -50,7 +50,7 @@
                         </v-list-item-content>
                         <v-list-item-content>
                           <v-list-item-title>
-                            Rp. {{ data.Third }}</v-list-item-title
+                            Rp. {{ pembayaran.Third }}</v-list-item-title
                           >
                         </v-list-item-content>
                       </v-list-item>
@@ -60,7 +60,7 @@
                         </v-list-item-content>
                         <v-list-item-content>
                           <v-list-item-title>
-                            Rp. {{ data.Fourth }}</v-list-item-title
+                            Rp. {{ pembayaran.Fourth }}</v-list-item-title
                           >
                         </v-list-item-content>
                       </v-list-item>
@@ -70,7 +70,7 @@
                         </v-list-item-content>
                         <v-list-item-content>
                           <v-list-item-title>
-                            Rp. {{ data.Fifth }}</v-list-item-title
+                            Rp. {{ pembayaran.Fifth }}</v-list-item-title
                           >
                         </v-list-item-content>
                       </v-list-item>
@@ -86,7 +86,7 @@
                         <v-list-item-content>
                           <v-list-item-title
                             ><strong
-                              >Rp. {{ data.Remain }}</strong
+                              >Rp. {{ pembayaran.Remain }}</strong
                             ></v-list-item-title
                           >
                         </v-list-item-content>
@@ -102,7 +102,7 @@
                         <v-list-item-content>
                           <v-list-item-title
                             ><strong
-                              >Rp. {{ data.Paid }}</strong
+                              >Rp. {{ pembayaran.Paid }}</strong
                             ></v-list-item-title
                           >
                         </v-list-item-content>
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Pembayaran",
@@ -137,11 +137,20 @@ export default {
       amp: true,
     },
   },
-  computed: {
-    ...mapState("pembayaran", ["pembayaran"]),
-  },
+
   created() {
-    this.$store.dispatch("pembayaran/getPembayaran");
+    this.getPembayaran();
+  },
+
+  computed: {
+    ...mapGetters("pembayaran", ["dataPembayaran"]),
+  },
+
+  methods: {
+    //
+    ...mapActions({
+      getPembayaran: "pembayaran/getPembayaran",
+    }),
   },
 };
 </script>
@@ -151,6 +160,9 @@ strong {
   color: #4682b4;
 }
 #text-color {
+  color: #4682b4;
+}
+#alert {
   color: #4682b4;
 }
 </style>
