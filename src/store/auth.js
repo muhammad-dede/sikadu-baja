@@ -7,6 +7,7 @@ export default {
   state: {
     token: null,
     user: null,
+    serverError: null,
   },
 
   getters: {
@@ -27,6 +28,10 @@ export default {
     SET_USER(state, data) {
       state.user = data;
     },
+
+    SET_ERROR(state, error) {
+      state.serverError = error;
+    },
   },
 
   actions: {
@@ -37,32 +42,23 @@ export default {
         .then((response) => {
           return dispatch("attempt", response.data.Token);
         })
-        .catch((error) => {
-          localStorage.removeItem("token");
-          console.log(error);
-        });
     },
 
-    async attempt({ commit, state }, token) {
-      if (token) {
-        commit("SET_TOKEN", token);
-        localStorage.setItem("token", token);
-      }
-
-      if (!state.token) {
-        return;
-      }
-
-      await axios.get("/mahasiswa/info/" + localStorage.getItem("token")).then(
-        (response) => {
+    async attempt({ commit }, token) {
+      await axios.get(`/mahasiswa/info/${token}`)
+        .then((response) => {
+          localStorage.setItem("token", token);
+          commit("SET_TOKEN", token);
           commit("SET_USER", response.data.Info);
-        },
-        (error) => {
+          commit("SET_ERROR", null);
+        })
+        .catch((error) => {
           commit("SET_TOKEN", null);
           commit("SET_USER", null);
-          console.log(error);
-        }
-      );
+          commit("SET_ERROR", "NIM/Password tidak valid");
+          localStorage.removeItem("token");
+          return error;
+        });
     },
 
     logout({ commit }) {

@@ -1,14 +1,19 @@
 <template>
   <div>
     <v-alert dense outlined type="error" class="mt-6">
-      {{ error }}
+      {{ serverError }}
     </v-alert>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Error",
-  props: ["error"],
+
+  computed: {
+    ...mapState("auth", ["serverError"]),
+  },
 };
 </script>

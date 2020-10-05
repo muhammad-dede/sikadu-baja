@@ -1,12 +1,13 @@
 <template>
   <v-app>
     <side-bar v-if="authenticated"></side-bar>
+
     <v-main>
       <nav-top v-if="authenticated"></nav-top>
-      <transition name="fade">
-        <router-view />
-      </transition>
+
+      <router-view />
     </v-main>
+
     <nav-bottom v-if="authenticated"></nav-bottom>
   </v-app>
 </template>
