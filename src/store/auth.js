@@ -47,8 +47,8 @@ export default {
     async attempt({ commit }, token) {
       await axios.get(`/mahasiswa/info/${token}`)
         .then((response) => {
-          localStorage.setItem("token", token);
-          commit("SET_TOKEN", token);
+          localStorage.setItem("token", token)
+          commit("SET_TOKEN", localStorage.getItem("token"));
           commit("SET_USER", response.data.Info);
           commit("SET_ERROR", null);
         })

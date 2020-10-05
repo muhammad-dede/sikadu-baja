@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import Error from "@/views/partials/Error";
 
 export default {
@@ -105,6 +105,10 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState("auth", ["serverError"]),
+  },
+
   methods: {
     ...mapActions({
       login: "auth/login",
@@ -116,10 +120,11 @@ export default {
         this.login({
           user: this.form.user,
           password: this.form.password,
-        }).then((response) => {
+        }).then(() => {
           //
-          if (response) {
+          if (this.serverError == null) {
             this.loading = false;
+            this.error = false;
             this.$router.replace({
               name: "Beranda",
             });
