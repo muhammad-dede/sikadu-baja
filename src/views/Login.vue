@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container class="mb-15 mt-10">
+    <v-container class="pt-10">
       <v-row no-gutters>
         <v-col cols="12" sm="6" md="8" class="d-none d-md-block">
           <v-card class="pa-2" flat>
@@ -60,6 +60,20 @@
           </v-card>
         </v-col>
       </v-row>
+      <v-footer app class="font-weight-medium" flat>
+        <v-col class="text-center" cols="12">
+          <strong>
+            {{ new Date().getFullYear() }} | Sikadu-Baja by
+            <a
+              href="https://github.com/muhammad-dede"
+              class="text-decoration-none"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Muhammad Dede Nuraen</a
+            ></strong
+          >
+        </v-col>
+      </v-footer>
     </v-container>
   </v-app>
 </template>
@@ -141,7 +155,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #custom-text {
   color: #4682b4;
 }
