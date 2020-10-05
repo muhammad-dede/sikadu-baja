@@ -31,7 +31,6 @@
                       class="mt-n3"
                       label="Nomor Induk Mahasiswa"
                       :rules="npmRules"
-                      type="number"
                       hide-details="auto"
                       v-model="form.user"
                     ></v-text-field>
@@ -90,6 +89,7 @@ export default {
       valid: true,
       npmRules: [
         (value) => !!value || "Nomor Induk Mahasiswa harus diisi",
+        (value) => /^\d+$/.test(value) || "Hanya diisi dengan angka",
         (value) => (value && value.length >= 10) || "Masukkan 10 digit NIM",
       ],
       passwordRules: [
@@ -122,7 +122,7 @@ export default {
           password: this.form.password,
         }).then(() => {
           //
-          if (this.serverError == null) {
+          if (!this.serverError) {
             this.loading = false;
             this.error = false;
             this.$router.replace({
