@@ -17,14 +17,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="jadwal in jadwal.List" :key="jadwal.Name">
+                <tr v-for="jadwal in dataJadwal.List" :key="jadwal.Name">
                   <td>{{ jadwal.Name }}</td>
                   <td class="text-left">
                     <v-btn
                       id="detail-btn"
                       class="white--text"
                       x-small
-                      @click.prevent="detailJadwal(jadwal)"
+                      @click.prevent="clickDetailJadwal(jadwal)"
                       >Lihat Jadwal</v-btn
                     >
                   </td>
@@ -32,14 +32,14 @@
               </tbody>
             </template>
           </v-simple-table>
-          <v-dialog v-model="dialog" persistent>
+          <v-dialog v-model="dialog">
             <v-card>
               <v-card-title class="headline"
                 ><strong>
-                  Kartu Rencana Studi {{ detail.Year }}/{{
-                    Number(detail.Year) + 1
+                  Kartu Rencana Studi {{ detailJadwal.Year }}/{{
+                    Number(detailJadwal.Year) + 1
                   }}
-                  {{ detail.Quart === "1" ? "Ganjil" : "Genap" }}</strong
+                  {{ detailJadwal.Quart === "1" ? "Ganjil" : "Genap" }}</strong
                 >
               </v-card-title>
               <v-card-text>
@@ -59,7 +59,7 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="detail in detail.Data"
+                        v-for="detail in detailJadwal.Data"
                         :key="detail.CourseName"
                       >
                         <td>{{ detail.CourseName }}</td>
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Jadwal",
@@ -113,21 +113,29 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("jadwal/getJadwal");
+    const token = localStorage.getItem("token");
+    this.getJadwal(token);
   },
 
   computed: {
-    ...mapState("jadwal", ["jadwal"]),
-    ...mapState("jadwal", ["detail"]),
+    ...mapGetters("jadwal", ["dataJadwal"]),
+    ...mapGetters("jadwal", ["detailJadwal"]),
   },
 
   methods: {
-    detailJadwal(jadwal) {
-      this.$store
-        .dispatch("jadwal/getDetailJadwal", {
-          year: jadwal.Year,
-          quart: jadwal.Quart,
-        })
+    //
+    ...mapActions({
+      getJadwal: "jadwal/getJadwal",
+      getDetailJadwal: "jadwal/getDetailJadwal",
+    }),
+
+    clickDetailJadwal(jadwal) {
+      const params = {
+        year: jadwal.Year,
+        quart: jadwal.Quart,
+        token: localStorage.getItem("token"),
+      };
+      this.getDetailJadwal(params)
         .then(() => {
           this.dialog = true;
         })

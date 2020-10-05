@@ -8,6 +8,16 @@ export default {
         detail: [],
     },
 
+    getters: {
+        dataJadwal(state) {
+            return state.jadwal
+        },
+
+        detailJadwal(state) {
+            return state.detail
+        }
+    },
+
     mutations: {
         SET_JADWAL(state, data) {
             state.jadwal = data;
@@ -19,9 +29,9 @@ export default {
     },
 
     actions: {
-        async getJadwal({ commit }) {
+        async getJadwal({ commit }, token) {
             await axios
-                .get("mahasiswa/schedule/" + localStorage.getItem("token"))
+                .get(`mahasiswa/schedule/${token}`)
                 .then((response) => {
                     commit("SET_JADWAL", response.data.Info);
                 })
@@ -32,7 +42,7 @@ export default {
 
         async getDetailJadwal({ commit }, params) {
             await axios
-                .get("mahasiswa/schedule/" + params.year + '/' + params.quart + '/' + localStorage.getItem("token"))
+                .get(`mahasiswa/schedule/${params.year}/${params.quart}/${params.token}`)
                 .then((response) => {
                     commit("SET_DETAIL_JADWAL", response.data.Info)
                 })
