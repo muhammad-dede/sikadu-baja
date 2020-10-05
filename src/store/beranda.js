@@ -7,6 +7,12 @@ export default {
         nilai: [],
     },
 
+    getters: {
+        chartNilai(state) {
+            return state.nilai
+        },
+    },
+
     mutations: {
         SET_NILAI(state, data) {
             state.nilai = data;
@@ -14,9 +20,9 @@ export default {
     },
 
     actions: {
-        async getNilai({ commit }) {
+        async getChartNilai({ commit }, token) {
             await axios
-                .get("mahasiswa/grade/summary/" + localStorage.getItem("token"))
+                .get(`mahasiswa/grade/summary/${token}`)
                 .then((response) => {
                     commit("SET_NILAI", response.data.Grade.Data);
                 })

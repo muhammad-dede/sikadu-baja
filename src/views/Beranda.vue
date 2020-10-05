@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Beranda",
@@ -50,20 +50,16 @@ export default {
 
   data() {
     return {
-      result: null,
+      result: [],
     };
-  },
-
-  created() {
-    this.$store.dispatch("beranda/getNilai");
   },
 
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
       user: "auth/user",
+      chartNilai: "beranda/chartNilai",
     }),
-    ...mapState("beranda", ["nilai"]),
   },
 
   mounted() {
@@ -71,12 +67,20 @@ export default {
   },
 
   methods: {
+    //
+    ...mapActions({
+      getChartNilai: "beranda/getChartNilai",
+    }),
+
     fetchData() {
-      let result = [];
-      this.nilai.forEach((element) => {
-        result.push([element.Semester, element.Cumulative]);
+      const token = localStorage.getItem("token");
+      this.getChartNilai(token).then(() => {
+        let result = [];
+        this.chartNilai.forEach((nilai) => {
+          result.push([nilai.Semester, nilai.Cumulative]);
+        });
+        this.result = result;
       });
-      this.result = result;
     },
   },
 };
